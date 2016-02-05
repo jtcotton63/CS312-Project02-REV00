@@ -95,7 +95,7 @@ namespace _2_convex_hull
                 int idxCurrCandidateFromPtsR = -1;
                 while(true)
                 {
-                    int idxNewCandidateFromPtsR = FindRightUpperTangentCandidate(edgePtsL, edgePtsR, idxLastCandidateFromPtsL, idxLastCandidateFromPtsR);
+                    int idxNewCandidateFromPtsR = FindIdxOfRightUpperTangentCandidate(edgePtsL, edgePtsR, idxLastCandidateFromPtsL, idxLastCandidateFromPtsR);
                     if(idxNewCandidateFromPtsR == idxCurrCandidateFromPtsR) { break; } else { idxCurrCandidateFromPtsR = idxNewCandidateFromPtsR; }
                 }
 
@@ -136,5 +136,26 @@ namespace _2_convex_hull
             return idxOfHighestXVal;
         }
 
+        private int FindIdxOfRightUpperTangentCandidate(List<PointF> edgePtsL, List<PointF> edgePtsR, int idxCurrCandidateFromPtsL, int idxCurrCandidateFromPtsR)
+        {
+            // CalcSlope calculates the slope ((y2-y1)/(x2-x1))
+            double currSlope = CalcSlope(edgePtsL[idxCurrCandidateFromPtsL], edgePtsR[idxCurrCandidateFromPtsR]);
+            /*
+             * The way the lists are ordered, increasing the index by one will give you the 
+             * next point clockwise from the current point.
+             * Decreasing the index by one will give you the next point counter clockwise.
+             */
+            double proposedSlope = CalcSlope(edgePtsL[idxCurrCandidateFromPtsL], edgePtsR[idxCurrCandidateFromPtsR + 1]);
+            if (proposedSlope > currSlope)
+            {
+                return idxCurrCandidateFromPtsR + 1;
+            }
+            else
+            {
+                return idxCurrCandidateFromPtsR;
+            }
+
+ 
+        }
     }
 }
