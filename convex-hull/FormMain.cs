@@ -197,9 +197,20 @@ namespace _2_convex_hull
         {
             Stopwatch timer = new Stopwatch();
             timer.Start();
-                ConvexHullSolver convexHullSolver = new ConvexHullSolver(m_g, pictureBoxView);
-                convexHullSolver.Solve(m_pointList);
-                pictureBoxView.Refresh();
+            ConvexHullSolver convexHullSolver = new ConvexHullSolver(m_g, pictureBoxView);
+            // Insert the points
+            /*
+            List<PointF> customPoints = new List<PointF>();
+            customPoints.Add(new PointF(0F, 20F));
+            customPoints.Add(new PointF(10F, 40F));
+            customPoints.Add(new PointF(20F, 2F));
+            customPoints.Add(new PointF(50F, 0F));
+            customPoints.Add(new PointF(70F, 20F));
+            customPoints.Add(new PointF(60F, 40F));
+            m_pointList = customPoints;
+             */
+            convexHullSolver.Solve(m_pointList);
+            pictureBoxView.Refresh();
             timer.Stop();
             statusLabel.Text = "Done.  Time taken: " + timer.Elapsed;
 
